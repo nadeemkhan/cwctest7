@@ -1,0 +1,25 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>
+    Video Chat Demo
+  </title>
+</head>
+  <body>
+    <script src="https://static.opentok.com/v2/js/opentok.js" charset="utf-8"></script>
+    <script charset="utf-8">
+      var apiKey = '45268642';
+      var sessionId = '2_MX40NTI2ODY0Mn5-MTQ3Mzc2NDE2Mzk4NX5WMjVwY3dFRWZEbWFLOGxBM1oyczhZSVR-fg';
+      var token = 'T1==cGFydG5lcl9pZD00NTI2ODY0MiZzaWc9ZmNiNWVkODhhMmZiMTM2NjNmZTdkNWI0YjIzZjRhNTJhNDk3NTA2MzpzZXNzaW9uX2lkPTJfTVg0ME5USTJPRFkwTW41LU1UUTNNemMyTkRFMk16azROWDVXTWpWd1kzZEZSV1pFYldGTE9HeEJNMW95Y3poWlNWUi1mZyZjcmVhdGVfdGltZT0xNDczNzY0MTk1Jm5vbmNlPTAuMzA5ODE1MjczODUzMDE4OSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDc2MzU2MTky';
+      var session = OT.initSession(apiKey, sessionId)
+        .on('streamCreated', function(event) {
+          session.subscribe(event.stream);
+        })
+        .connect(token, function(error) {
+          var publisher = OT.initPublisher();
+          session.publish(publisher);
+        });
+    </script>
+  </body>
+</html>
