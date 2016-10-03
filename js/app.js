@@ -1,15 +1,14 @@
-var apiKey = '45268642';
-var sessionId = '2_MX40NTI2ODY0Mn5-MTQ3Mzc2NDE2Mzk4NX5WMjVwY3dFRWZEbWFLOGxBM1oyczhZSVR-fg';
-var token = 'T1==cGFydG5lcl9pZD00NTI2ODY0MiZzaWc9ZmNiNWVkODhhMmZiMTM2NjNmZTdkNWI0YjIzZjRhNTJhNDk3NTA2MzpzZXNzaW9uX2lkPTJfTVg0ME5USTJPRFkwTW41LU1UUTNNemMyTkRFMk16azROWDVXTWpWd1kzZEZSV1pFYldGTE9HeEJNMW95Y3poWlNWUi1mZyZjcmVhdGVfdGltZT0xNDczNzY0MTk1Jm5vbmNlPTAuMzA5ODE1MjczODUzMDE4OSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDc2MzU2MTky';
+var apiKey,
+    sessionId,
+    token;
 
 $(document).ready(function() {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
     
-    alert(SAMPLE_SERVER_BASE_URL);
   $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-    /*apiKey = res.apiKey;
+    apiKey = res.apiKey;
     sessionId = res.sessionId;
-    token = res.token;*/
+    token = res.token;
 
     initializeSession();
   });
