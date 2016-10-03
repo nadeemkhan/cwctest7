@@ -7,9 +7,9 @@ $(document).ready(function() {
     
     alert(SAMPLE_SERVER_BASE_URL);
   $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
-    apiKey = res.apiKey;
+    /*apiKey = res.apiKey;
     sessionId = res.sessionId;
-    token = res.token;
+    token = res.token;*/
 
     initializeSession();
   });
