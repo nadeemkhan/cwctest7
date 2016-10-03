@@ -4,6 +4,8 @@ var apiKey,
 
 $(document).ready(function() {
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
+    alert("test");
+    alert(SAMPLE_SERVER_BASE_URL);
   $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
     apiKey = res.apiKey;
     sessionId = res.sessionId;
