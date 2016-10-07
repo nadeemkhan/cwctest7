@@ -38,7 +38,7 @@
         }
       $(document).ready(function(){
           var post_data = {};
-          $.post("https://advancedlaparoscopicsurgeon.com/chat/ajax_appointment.php?app_id=" + $.urlParam('app_id'), post_data, function(resp) {
+          $.post("https://advancedlaparoscopicsurgeon.com/chat/ajax_appointment_credential.php?app_id=" + $.urlParam('app_id'), post_data, function(resp) {
             var decode_resp = $.parseJSON(resp);
             alert(decode_resp.session_id);
           });  
