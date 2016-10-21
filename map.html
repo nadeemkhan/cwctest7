@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Marker animations with <code>setTimeout()</code></title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #floating-panel {
+        margin-left: -52px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="map"></div>
+    <script>
+
+      // If you're adding a number of markers, you may want to drop them on the map
+      // consecutively rather than all at once. This example shows how to use
+      // window.setTimeout() to space your markers' animation.
+
+      var neighborhoodsgreen = [
+        {lat: 52.511, lng: 13.447},
+        {lat: 52.549, lng: 13.422},
+        {lat: 52.497, lng: 13.396},
+        {lat: 67.382, lng: -142.293},
+        {lat: 65.362, lng: -134.727},
+        {lat: 65.237, lng: 127.939},
+        {lat: 59.151, lng: -113.486},
+        {lat: 47.022, lng: -102.039},
+        {lat: 50.223, lng: -73.713},
+        {lat: 35.617, lng: -98.641},
+        {lat: 26.146, lng: -101.721},
+        {lat: 16.753, lng: -91.170},
+        {lat: 2.835, lng: -79.240},
+        {lat: -4.143, lng: -58.774},
+        {lat: -8.220, lng: -53.119},
+        {lat: -10.828, lng: -63.553},
+        {lat: -22.605, lng: -44.821},
+        {lat: -31.241, lng: -73.338},
+        {lat: 22.703, lng: -7.547},
+        {lat: 19.359, lng: 19.359},
+        {lat: 13.966, lng: 13.966},
+        {lat: 15.150, lng: 6.752},
+        {lat: -3.0944, lng: 19.940},
+        {lat: 34.859, lng: 57.463},
+        {lat: 50.080, lng: 41.078},
+        {lat: 46.150, lng: 20.428},,
+        {lat: 30.238, lng: -3.379},
+        {lat: 6.144, lng: 27.074},
+        {lat: -19.591, lng: 44.971},
+        {lat: -22.082, lng: 20.431},
+        {lat: -25.616, lng: 26.635},
+        {lat: -29.250, lng: 23.393},,
+        {lat: 57.650, lng: 90.913},
+        {lat: 49.400, lng: 136.670},
+        {lat: 44.187, lng: 123.705},
+        {lat: 32.444, lng: 122.246},
+        {lat: -5.369, lng: 139.86},
+        {lat: -27.257, lng: 172.368},
+        {lat: -31.432, lng: 146.252},
+        {lat: -35.152, lng: 142.827}
+      ];
+
+
+      var neighborhoodsred = [
+        {lat: 53.511, lng: 15.447},
+        {lat: 53.549, lng: 11.422},
+        {lat: 53.497, lng: 12.396},
+        {lat: 68.382, lng: -102.293},
+        {lat: 66.362, lng: -184.727},
+        {lat: 66.237, lng: 120.939},
+        {lat: 60.151, lng: -153.486},
+        {lat: 46.022, lng: -109.039},
+        {lat: 52.223, lng: -93.713},
+        {lat: 32.617, lng: -108.641},
+        {lat: 27.146, lng: -108.721},
+        {lat: 15.753, lng: -111.170},
+        {lat: 1.835, lng: -59.240},
+        {lat: -3.143, lng: -68.774},
+        {lat: -7.220, lng: -73.119},
+        {lat: 21.703, lng: -5.547},
+        {lat: 18.359, lng: 29.359},
+        {lat: 12.966, lng: 18.966},
+        {lat: 14.150, lng: 8.752},
+        {lat: 35.695, lng: 70.928},
+        {lat: 46.151, lng: 42.443},
+        {lat: 5.496, lng: 48.804},
+        {lat: 46.150, lng: 20.428},
+        {lat: 22.350, lng: -0.562},
+        {lat: 14.130, lng: 3.692},
+        {lat: 9.223, lng: 11.978},
+        {lat: -6.593, lng: 26.593},
+        {lat: -10.726, lng: 35.382},
+        {lat: -17.240, lng: 27.493},
+        {lat: -29.250, lng: 23.393},
+        {lat: 15.661, lng: 77.823},
+        {lat: 33.061, lng: 72.134},
+        {lat: 28.724, lng: 54.474},
+        {lat: 51.6074, lng: 58.167},
+        {lat: 56.041, lng: 81.475},
+        {lat: -36.624, lng: 142.309},
+        {lat: -45.180, lng: 168.589},
+        {lat: -39.148, lng: 175.983}
+      ];
+
+      
+
+      var markers = [];
+      var map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 1,
+          center: {lat: 52.520, lng: 13.410}
+        });
+
+        drop();
+      }
+
+      function drop() {
+        clearMarkers();
+        for (var i = 0; i < neighborhoodsgreen.length; i++) {
+          addMarkerWithTimeout(neighborhoodsgreen[i], i * 200, 'http://www.animatedgif.net/bulletsballs/ball4-1_e0.gif');
+          addMarkerWithTimeout(neighborhoodsred[i], i * 200, 'http://balaji.waphall.com/images/icon/ball/10.gif');
+        }
+      }
+
+      function addMarkerWithTimeout(position, timeout, icon) {
+        window.setTimeout(function() {
+          markers.push(new google.maps.Marker({
+            position: position,
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: icon,
+            optimized: false
+
+          }));
+        }, timeout);
+      }
+
+      function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9FGQHTjimlCKxORS3EdPkyWmZpq11faY&callback=initMap">
+    </script>
+  </body>
+</html>
